@@ -1,0 +1,4 @@
+Total amount data: 119103
+Number of Inputs: 16
+total_amount: 11848
+mean_error: [1.]

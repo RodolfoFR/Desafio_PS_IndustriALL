@@ -1,0 +1,2 @@
+Total amount data: 119103
+Number of Inputs: 16
