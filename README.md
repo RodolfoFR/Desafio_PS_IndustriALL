@@ -83,9 +83,12 @@ Como os dados são com base no tempo vai ser criado um modelo RNN (Rede Neural R
 
 # Resutados:
 
-  + Treinamento, função de perdas:
-    
+  + Treinamento, Gráfico da função de perdas ao longo das épocas:
 
+<img src="images/losses_graphic.png" alt="Girl in a jacket" width="350" height="200">
+    
+  + Conclusão do Gráfico: É possível verificar que o modelo está no limite de chegar a um overfitting considerado, ainda não chegou. Realizar mais épocas de treinamento não recomendado, pois claramente está próximo de um overfitting. Além do mais nas ultimas épocas apresentou baixa perdas de treino e validação, isso é um bom sinal para a qualidade do modelo.  
+  
   + Métrica de Avalição da acurácia Modelo:
 
     ° **Precisão:** Numero percentual da quantidade de Verdadeiro Positivos sobre o total de previsões. Ou seja, a taxa de acerto das previsões, sobre o conjunto de teste
@@ -95,6 +98,41 @@ Como os dados são com base no tempo vai ser criado um modelo RNN (Rede Neural R
 | Todas | 97,5% | 11848|
 | Normal | 98,8% |10265|
 | Anormal | 89,3% |1583|
+
+  ° Conclusão da Avaliação: Embora o modelo tenha alcançado uma boa precisão relativamente (97,3%) é necessário análisar os detalhes com mais cuidado. Por conta do desbaleciamento entre as classes (97,5% - 2,5%) a classe anormal apresentou baixa precisão, que é a classe foco do desafio, desse jeito é preciso de uma outra analise em conjunto para determinar a anormalia. Além disso como são poucos dados dessa classe não é um resultado tão confiante para generalizar. Desse modo, certas propostas podem melhorar ainda mais esse resultado ou ter mais confiabilidade, soluções como mais coleta de dados, data augmentation, criação de rede mais complexas (com mais camadas por exemplo) ou um pré- processamento de dados mais refinado.  
+
+
+# Nova Proposta para o Desafio:
+
+  + Criação de um outro modelo que prever quanto tempo (minutos) a anormalia vai continuar.
+  + Motivação: É possivel analisar pelos dados que quando acontece uma anormalia não acontece em apenas 1 min, mas geralmente em periodo maior
+  + Previsão acontece após a previsão do modelo principal (que prever quando que a anormalia acontece), que seria a previsão de quanto tempo a anormalia ia perpertuar
+
+  + Pré-Processamento (feito em data_preprocessing.ipynb):
+     * Criar a nova saída, que é o rastreamento temporal da anormalia da planta
+     * Verificação da correlação, (entradas com correlação maior que média)
+     * 16 entradas após pré-processamento
+       
+  + train_anomaly_time_model.ipynb (treinamento do novo modelo)
+  + Perído de análise é de 10 min (ou seja 10 entradas para prever com 63 min de antecedência)
+  + Divisão do Dataset: 80% Treino, 10% Validação e 10% Teste
+  + Normalização dos dados
+  + Arquiterura da rede RNN:
+      * Camadas LSTM (Long Short Term Memory)
+      * Função de ativação: ReLU, menor que 0 vira 0
+      * Função de perdas: MSE
+      * Otimizador: ADAM
+  + Uso da GPU
+    + Hiperparamêtros de treinamento:
+      * 72 épocas
+      *  batch size de 32
+
+# Resultados da nova proposta:
+
+  + Infelizmente deu erro e as perdas de treinamento eram constante
+  + E erro só previsa uma saída (0)
+  + Claramante um resultado não válido
+  + Possível motivo pelo erro: Arquitetura da rede não adente a tal problemática
 
   
     
