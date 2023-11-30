@@ -29,7 +29,7 @@ Como os dados são com base no tempo vai ser criado um modelo RNN (Rede Neural R
       + Para mexer nos código é preciso mexer no caminho da variavel path_of_PS_IndustriALL (str) presente em todos os códigos. É o caminho do diretório que foi colcado a respositório
   
   - Bibliotecas
-    + sys, os, pandas, matplotlib, numpy
+    + sys, os, pandas, matplotlib, numpy, tensorflow e sklearn
 
   - Ambiente usado para o projeto
     + Google Colab
@@ -55,9 +55,49 @@ Como os dados são com base no tempo vai ser criado um modelo RNN (Rede Neural R
         * Coeficiente de variação (cv) abaixo da média dos coeficientes de variação menos o desvio padrão das entradas (menor que 27.4%)
         * Colunas que tem seus histogramas de classe (um histograma por classe - Normal e Anormal) com a área de intersecção maior ou igual a 75%
         * Entradas com esses critério tem baixa variação no tempo e pouco influência a saída
-        * Colunas/Entradas Removidas:  
+        * Colunas/Entradas Removidas: TAG_iALL_PS_20, TAG_iALL_PS_24, TAG_iALL_PS_25
+    + 9° Escolha do minuto de previsão:
+        * um minuto entre 30min a 480 min (8h, uma jornada de trabalho)
+        * Com base na correlação médias das entradas com a saída
+        * O escolhido é mais distante possível que tenha uma tolerancia de 5% em relação a maior média de correlação
+        * Minuto esoclhido é 63 min antes de uma possível anormalidade
+        * Remoção das Colunas com correlação a baixo da média das correlações das colunas do minuto 63 min
+        * Colunas não removidas: TAG_iALL_PS_00, TAG_iALL_PS_04, TAG_iALL_PS_05, TAG_iALL_PS_06, TAG_iALL_PS_10, TAG_iALL_PS_11, TAG_iALL_PS_12, TAG_iALL_PS_13, TAG_iALL_PS_22, TAG_iALL_PS_23, TAG_iALL_PS_26, TAG_iALL_PS_28, TAG_iALL_PS_37, TAG_iALL_PS_48, TAG_iALL_PS_50, TAG_iALL_PS_51   
 
+  - train_main_model.ipynb:
 
+    + Objetivo: Realizar o treinamento do modelo preditivo com base nos dados pré-processados, que prever com 63 min de antecedência uma possível anormalia da planta.
+    + Entradas: As linhas listadas no tópico 9° do data_preprocessing.ipynb mais o target_iALL_PS atual, totalizando 17 entradas
+    + Perído de análise é de 10 min (ou seja 10 entradas para prever com 63 min de antecedência)
+    + Divisão do Dataset: 80% Treino, 10% Validação e 10% Teste
+    + Normalização dos dados
+    + Arquiterura da rede RNN:
+      * Camadas LSTM (Long Short Term Memory)
+      * Função de ativação: Sigmoid, bom para problemas de classificações binárias
+      * Função de perdas: MSE
+      * Otimizador: ADAM
+    + Uso da GPU
+    + Hiperparamêtros de treinamento:
+      * 300 épocas
+      *  batch size de 32
+
+# Resutados:
+
+  + Treinamento, função de perdas:
+    
+
+  + Métrica de Avalição da acurácia Modelo:
+
+    ° **Precisão:** Numero percentual da quantidade de Verdadeiro Positivos sobre o total de previsões. Ou seja, a taxa de acerto das previsões, sobre o conjunto de teste
+    
+| Classe | Precisão | Quantidade de Dados|
+| ---    | ---      | ---|
+| Todas | 97,5% | 11848|
+| Normal | 98,8% |10265|
+| Anormal | 89,3% |1583|
+
+  
+    
 
 
 
