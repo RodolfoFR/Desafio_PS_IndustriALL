@@ -1,7 +1,7 @@
 # Desafio_PS_IndustriALL
 Esse Repositório é referente ao desafio do processo seletivo da IndustriALL
 
-**Dono do Repositótio:** Rodolfo Franco Ribeiro
+**Dono do Repositório:** Rodolfo Franco Ribeiro
 
 # Desafio:
 
@@ -39,10 +39,10 @@ Como os dados são com base no tempo vai ser criado um modelo RNN (Rede Neural R
     + 1°: Carregar os arquivos csv dos Dados Brutos
     + 2°: Montar um único DataFrame/Tabela com esses Dados, sem repetir a coluna comum "timestamp", onde cada arquivo teria uma coluna no Dataframe/Tabela
         * Total de linhas/dados de 220320
-        * Total de Coulnas: 54
+        * Total de Colunas: 54
     + 3°: Verificar se há arquivos com colunas iguais ou colunas com linhas vazias
         * Foi Removido TAG_iALL_PS_15, pois está com linhas vazias
-        * Total de Coulnas: 53
+        * Total de Colunas: 53
     + 4° Verificação se há linhas duplicadas
     + 5° Remoção de linhas com pelo menos uma coluna/entrada vazias
         * 101217 dados/linhas removidos, sobrando 119103 dados
@@ -61,7 +61,7 @@ Como os dados são com base no tempo vai ser criado um modelo RNN (Rede Neural R
         * Com base na correlação médias das entradas com a saída
         * O escolhido é mais distante possível que tenha uma tolerancia de 5% em relação a maior média de correlação
         * Minuto esoclhido é 63 min antes de uma possível anormalidade
-        * Remoção das Colunas com correlação a baixo da média das correlações das colunas do minuto 63 min
+        * Remoção das Colunas com correlação a baixo da média das correlações das colunas do minuto 63
         * Colunas não removidas: TAG_iALL_PS_00, TAG_iALL_PS_04, TAG_iALL_PS_05, TAG_iALL_PS_06, TAG_iALL_PS_10, TAG_iALL_PS_11, TAG_iALL_PS_12, TAG_iALL_PS_13, TAG_iALL_PS_22, TAG_iALL_PS_23, TAG_iALL_PS_26, TAG_iALL_PS_28, TAG_iALL_PS_37, TAG_iALL_PS_48, TAG_iALL_PS_50, TAG_iALL_PS_51   
 
   - train_main_model.ipynb:
@@ -81,7 +81,7 @@ Como os dados são com base no tempo vai ser criado um modelo RNN (Rede Neural R
       * 300 épocas
       *  batch size de 32
 
-# Resutados:
+# Resultados:
 
   + Treinamento, Gráfico da função de perdas ao longo das épocas:
 
